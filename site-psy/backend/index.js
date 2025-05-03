@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
+import appointmentRoutes from './routes/appointmentRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -17,3 +18,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Serveur en écoute sur http://localhost:${PORT}`));
 
 app.use('/api/auth', authRoutes);
+
+
+
+app.use('/api/appointments', appointmentRoutes);
