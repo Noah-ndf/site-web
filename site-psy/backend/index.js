@@ -15,6 +15,10 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+app.get('/api/test', (req, res) => {
+  res.send('Le backend répond bien ✅');
+});
+
 app.listen(PORT, () => console.log(`Serveur en écoute sur http://localhost:${PORT}`));
 
 app.use('/api/auth', authRoutes);
@@ -22,3 +26,7 @@ app.use('/api/auth', authRoutes);
 
 
 app.use('/api/appointments', appointmentRoutes);
+
+app.get('/api/test', (req, res) => {
+  res.send('Le backend répond bien ✅');
+});
