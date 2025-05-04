@@ -3,7 +3,8 @@
   padding: 0;
 }
 
-.navbar{
+  .navbar{
+    width: 100%;
     background-color: #FFF4F1;
     display: flex;
     align-items: center;

@@ -10,6 +10,8 @@ export default function Home() {
   <div className='Bloc1-2'></div>
  </article>
 
+ <article className='Bloc2'>
+ </article>
 
   </div>;
 }
