@@ -1,4 +1,5 @@
 import React from 'react';
+import './i18n/i18n';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';

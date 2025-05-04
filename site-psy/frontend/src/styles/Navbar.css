@@ -38,6 +38,15 @@
     transition: 0.3s ease;
   }
 
+  .links select {
+    margin-left: 20px;
+    padding: 10px 30px;
+    border: solid 3px #9E6F6D;
+    border-radius: 50px;
+    background-color:  #FFF4F1;
+    color: #3C5953;
+  }
+
   .login{
     color: #FFF4F1;
     text-decoration: none;
