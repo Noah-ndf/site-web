@@ -8,8 +8,10 @@ export default function Navbar() {
       <div className="links">
         <img src="./../../public/pink-logo.png" alt="" />
         <Link to="/">Accueil</Link> 
-        <Link to="/login">Connexion</Link> 
-        <Link to="/register">Inscription</Link>
+        <Link to="/presentation">Présentation</Link> 
+        <Link to="/tarifs">Mes tarifs</Link>
+        <Link to="/bnp">Mon livre et podcast</Link>
+        <Link to="/coordonnees">Mes coordonnées</Link>
         </div>
         <Link className="login" to="/login">Connexion</Link>
     </nav>
