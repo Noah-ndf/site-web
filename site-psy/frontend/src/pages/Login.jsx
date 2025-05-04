@@ -9,7 +9,7 @@ export default function Login() {
         <img src="./../../public/logo-white-background.png" alt="" />
         <h1>Heureux de vous revoir !</h1>
         <h2>Veuillez vous conecter pour pouvoir accès à mes services</h2>
-        <p>Pas encore de compte, inscrivez-vous <Link to="/Register">ici.</Link> </p>
+        <p>Pas encore de compte ? inscrivez-vous <Link to="/Register">ici.</Link> </p>
       </div>
       <div className="bloc1-2">
       <form className="login-form">
