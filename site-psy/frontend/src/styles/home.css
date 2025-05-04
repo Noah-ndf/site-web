@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  .pagecontainer {
+    background-color: red;
+    width: 100%;
+    height: 100%;
+  }
+
+  .Bloc1 {
+    background-color: blue;
+    width: 100%;
+    height: calc(100vh - 80px);display: flex;
+  }
+
+  .Bloc1-1 {
+    background-color: #FFF4F1;
+    height: 100%;
+    width: 60%;
+  }
+
+  .Bloc1-2 {
+    background-color: #9E6F6D;
+    height: 100%;
+    width: 40%;
+  }
+
+  .Bloc2 {
+    background-color: #FFF4F1;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+  }
