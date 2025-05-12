@@ -4,13 +4,14 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Bnp from './pages/Bnp';
-import Presentation from './pages/presentation';
+import Presentation from './pages/Presentation';
 import Register from './pages/Register';
 import Coordonnees from './pages/coordonnees';
 import Tarifs from './pages/tarifs';
 import Navbar from './components/Navbar';
 import MesRendezVous from './pages/MesRendezVous';
 import Footer from './components/Footer';
+import './styles/App.css';
 
 export default function App() {
   return (

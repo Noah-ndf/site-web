@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -20,6 +24,46 @@
     background-color: #FFF4F1;
     height: 100%;
     width: 60%;
+    padding: 100px;
+  }
+
+  .Bloc1-1 h1 {
+    color: #3C5953;
+    text-transform: capitalize;
+    font-size: 60px;
+  }
+
+  .bar {
+    margin-top: 50px;
+    height: 5px;
+    width: 400px;
+    background-color: #9E6F6D;
+    border-radius: 50px;
+  }
+
+  .Bloc1-1 p {
+    color: #3C5953;
+    margin-top: 50px;
+    font-size: 20px;
+  }
+
+  .Bloc1-1 button{
+    margin-top: 50px;
+    color: #FFF4F1;
+    text-decoration: none;
+    background-color: #9E6F6D;
+    padding: 15px 45px;
+    border-radius: 500px;
+    border: 2px solid #9E6F6D;
+    font-size: 20px;
+    margin-inline: 40%;
+  }
+
+  .Bloc1-1 button:hover {
+    color: #9E6F6D;
+    background-color: #FFF4F1;
+    transition: 0.3s ease;
+    border: 2px #9E6F6D solid;
   }
 
   .Bloc1-2 {
