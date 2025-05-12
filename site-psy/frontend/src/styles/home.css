@@ -138,3 +138,45 @@ html {
     background-color:#9E6F6D;
     border-radius: 50px;
   }
+
+  .Bloc2-2{
+    display: flex;
+    height: 430px;
+  }
+
+  .Bloc2-2-1 {
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    padding: 50px;
+  }
+
+  .Bloc2-2-1 h1 {
+    color: #3C5953;
+    font-size: 40px;
+  }
+
+  .Bloc2-2-2{
+    padding: 50px 50px 0 50px;
+    width: 50%;
+    height: 100%;
+    padding-right: 100px;
+  }
+
+  .Bloc2-2-2 p {
+    margin-bottom: 40px;
+    color: #3C5953;
+    font-size: 18px;
+  }
+  .Bloc2-2-2 :nth-child(2){
+    margin-bottom: 60px;
+  }
+
+  .Bloc2-2-2 a {
+    text-decoration: none;
+    color: #9E6F6D;
+    padding: 20px 50px;
+    background-color: #FFF4F1;
+    border: solid 5px #9E6F6D;
+    border-radius: 50px;
+  }

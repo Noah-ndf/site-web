@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 import './../styles/home.css';
 
@@ -34,17 +35,22 @@ export default function Home() {
     <div className="bar2-2"></div>
   </div>
   <div className="Bloc2-2">
-    <h1>Téléconsultation :</h1>
-  </div>
-  <div className="Bloc2-2">
-    <p>
-      La psychothérapie doit être accessible à toutes et tous et de n’importe où, c’est pourquoi je
-    vous propose un accompagnement en ligne afin de palier vos contraintes de déplacement et
-    d’organisation personnelle ou simplement pour répondre à un choix, une préférence.
+    <div className="Bloc2-2-1">
+      <h1>Téléconsultation :</h1>
+    </div>
+    <div className="Bloc2-2-2">
+      <p>
+        La psychothérapie doit être accessible à toutes et tous et de n’importe où, c’est pourquoi je
+      vous propose un accompagnement en ligne afin de palier vos contraintes de déplacement et
+      d’organisation personnelle ou simplement pour répondre à un choix, une préférence.</p>
 
-    C’est un accompagnement flexible qui vous permet d’avoir accès à un suivi psychologique quelle que
-    soit votre situation (maladies chroniques, grossesse alitée, vie à l’étranger, horaires de travail
-    incompatibles avec un rendez-vous en cabinet, impératifs familiaux, etc.).</p>
+      <p>
+      C’est un accompagnement flexible qui vous permet d’avoir accès à un suivi psychologique quelle que
+      soit votre situation (maladies chroniques, grossesse alitée, vie à l’étranger, horaires de travail
+      incompatibles avec un rendez-vous en cabinet, impératifs familiaux, etc.).</p>
+
+      <Link to="/presentation">Plus sur moi</Link>
+    </div>
   </div>
  </article>
 
