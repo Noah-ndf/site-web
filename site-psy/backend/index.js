@@ -1,37 +1,48 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import authRoutes from './routes/authRoutes.js';
-import appointmentRoutes from './routes/appointmentRoutes.js';
 import connectDB from './db.js';
 
-
-
+import authRoutes from './routes/authRoutes.js';
+import appointmentRoutes from './routes/appointmentRoutes.js';
 
 dotenv.config();
-connectDB(); // juste après dotenv.config()
+connectDB(); // Connexion à MongoDB
+
 const app = express();
 
+// Middleware pour parser le JSON
 app.use(express.json());
 
-// Configuration de CORS
+// Configuration CORS
 app.use(cors({
-    origin: 'http://localhost:5173', // Adresse du front-end
-    credentials: true, // Autoriser les cookies et les tokens
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: 'http://localhost:5173', // Adresse du front-end
+  credentials: true,              // Autoriser les cookies / tokens
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
+// Route de test (accueil)
 app.get('/', (req, res) => {
   res.send('API en ligne 🎉');
 });
 
+// Route de test rapide
 app.get('/api/test', (req, res) => {
   res.send('Le backend répond bien ✅');
 });
 
+// Routes principales
 app.use('/api/auth', authRoutes);
 app.use('/api/appointments', appointmentRoutes);
 
+// Route fallback 404
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+});
+
+// Lancement du serveur
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Serveur en écoute sur http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Serveur en écoute sur http://localhost:${PORT}`);
+});

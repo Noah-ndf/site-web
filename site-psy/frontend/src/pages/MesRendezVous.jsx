@@ -14,10 +14,11 @@ function MesRendezVous() {
       return;
     }
 
-    fetch('http://localhost:5000/api/appointments', {
+    fetch('http://localhost:5000/api/appointments/me', {
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     })
       .then(res => {
         if (!res.ok) throw new Error('Erreur lors du chargement des rendez-vous');
@@ -44,8 +45,8 @@ function MesRendezVous() {
       ) : (
         <ul>
           {appointments.map((a) => (
-            <li key={a.id}>
-              <strong>{a.date}</strong> à <strong>{a.time}</strong> — {a.reason}
+            <li key={a._id}>
+              {new Date(a.date).toLocaleString()} — {a.motif}
             </li>
           ))}
         </ul>

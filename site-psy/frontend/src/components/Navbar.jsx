@@ -19,6 +19,8 @@ export default function Navbar() {
         <Link to="/tarifs">{t('pricing')}</Link>
         <Link to="/bnp">{t('bookPodcast')}</Link>
         <Link to="/coordonnees">{t('contact')}</Link>
+        <Link to="/prendre-rendez-vous">Prendre un rendez-vous</Link>
+
         <select onChange={(e) => changeLanguage(e.target.value)} defaultValue={i18n.language}>
           <option value="fr">Français</option>
           <option value="it">Italiano</option>
