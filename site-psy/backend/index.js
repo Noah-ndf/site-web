@@ -3,8 +3,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import appointmentRoutes from './routes/appointmentRoutes.js';
+import connectDB from './db.js';
+
+
+
 
 dotenv.config();
+connectDB(); // juste après dotenv.config()
 const app = express();
 
 app.use(express.json());

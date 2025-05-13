@@ -1,50 +1,88 @@
-// backend/controllers/authController.js
-
-import { users, User } from '../models/userModel.js';
+import User from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-export const register = async (req, res) => {
-  const { name, email, password } = req.body;
-
-  // Vérifie si l'utilisateur existe déjà
-  const existingUser = users.find((u) => u.email === email);
-  if (existingUser) {
-    return res.status(400).json({ message: 'Email déjà utilisé' });
-  }
-
-  // Hash du mot de passe
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  // Création de l'utilisateur
-  const newUser = new User({
-    id: Date.now(), // temporaire
-    name,
-    email,
-    password: hashedPassword
-  });
-
-  users.push(newUser);
-
-  res.status(201).json({ message: 'Utilisateur créé avec succès' });
+// Fonction pour créer un token JWT
+const createToken = (user) => {
+  return jwt.sign(
+    { id: user._id, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: '7d' }
+  );
 };
 
+// Enregistrement d'un nouvel utilisateur
+export const register = async (req, res) => {
+  try {
+    const { nom, prenom, email, password, telephone, role } = req.body;
+
+    // Vérifie si l'utilisateur existe déjà
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'Email already in use' });
+    }
+
+    // Création de l'utilisateur
+    const newUser = new User({
+      nom,
+      prenom,
+      email,
+      password,
+      telephone,
+      role: role || 'client',  // Défaut à 'client' si non fourni
+    });
+
+    await newUser.save();
+
+    const token = createToken(newUser);
+
+    res.status(201).json({
+      message: 'User registered successfully',
+      token,
+      user: {
+        id: newUser._id,
+        nom: newUser.nom,
+        prenom: newUser.prenom,
+        email: newUser.email,
+        role: newUser.role,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error during registration' });
+  }
+};
+
+// Connexion d'un utilisateur
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-  const user = users.find((u) => u.email === email);
-  if (!user) {
-    return res.status(400).json({ message: 'Utilisateur non trouvé' });
+    // Recherche de l'utilisateur
+    const user = await User.findOne({ email });
+
+    // Vérification combinée : ne jamais révéler si c'est l'email ou le mot de passe
+    const isValid = user && await bcrypt.compare(password, user.password);
+
+    if (!isValid) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    const token = createToken(user);
+
+    res.status(200).json({
+      message: 'Login successful',
+      token,
+      user: {
+        id: user._id,
+        nom: user.nom,
+        prenom: user.prenom,
+        email: user.email,
+        role: user.role,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error during login' });
   }
-
-  const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) {
-    return res.status(401).json({ message: 'Mot de passe incorrect' });
-  }
-
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-    expiresIn: '1h'
-  });
-
-  res.status(200).json({ message: 'Connexion réussie', token });
 };
