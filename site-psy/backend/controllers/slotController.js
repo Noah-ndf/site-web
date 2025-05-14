@@ -2,8 +2,12 @@ import Slot from '../models/slotModel.js';
 
 export const generateSlots = async (req, res) => {
   try {
-    const { config = {}, joursAvance = 7 } = req.body;
+    const { config = {}, dates = [] } = req.body;
     const psyId = req.user._id;
+
+    if (!Array.isArray(dates) || dates.length === 0) {
+      return res.status(400).json({ message: 'Aucune date fournie' });
+    }
 
     const joursMap = {
       'dimanche': 0,
@@ -16,40 +20,39 @@ export const generateSlots = async (req, res) => {
     };
 
     const createdSlots = [];
-    const today = new Date();
 
-    for (let i = 0; i < joursAvance; i++) {
-      const date = new Date();
-      date.setDate(today.getDate() + i);
-
-      const dayIndex = date.getDay(); // 0 = dimanche
+    for (const dateStr of dates) {
+      const dateObj = new Date(dateStr);
+      const dayIndex = dateObj.getDay();
       const jourFr = Object.keys(joursMap).find(j => joursMap[j] === dayIndex);
       const jourConfig = config[jourFr];
 
-      if (!jourConfig || !jourConfig.actif) continue;
+      if (!jourConfig || !jourConfig.actif || !Array.isArray(jourConfig.plages)) continue;
 
-      const from = jourConfig.from;
-      const to = jourConfig.to;
+      for (const plage of jourConfig.plages) {
+        const from = plage.from;
+        const to = plage.to;
 
-      for (let hour = from; hour < to; hour++) {
-        const slotDate = new Date(date);
-        slotDate.setHours(hour, 0, 0, 0);
+        for (let hour = from; hour < to; hour++) {
+          const slotDate = new Date(dateStr);
+          slotDate.setHours(hour, 0, 0, 0);
 
-        const existing = await Slot.findOne({ date: slotDate, psy: psyId });
-        if (!existing) {
-          const newSlot = new Slot({
-            date: slotDate,
-            psy: psyId,
-            estDisponible: true
-          });
-          await newSlot.save();
-          createdSlots.push(newSlot);
+          const exists = await Slot.findOne({ date: slotDate, psy: psyId });
+          if (!exists) {
+            const newSlot = new Slot({
+              date: slotDate,
+              psy: psyId,
+              estDisponible: true
+            });
+            await newSlot.save();
+            createdSlots.push(newSlot);
+          }
         }
       }
     }
 
     res.status(201).json({
-      message: `${createdSlots.length} créneaux créés`,
+      message: `${createdSlots.length} créneaux générés avec succès.`,
       slots: createdSlots
     });
 
@@ -132,3 +135,43 @@ export const getMyReservedSlots = async (req, res) => {
     res.status(500).json({ message: 'Erreur lors de la récupération des rendez-vous' });
   }
 };
+
+export const getMySlots = async (req, res) => {
+  try {
+    const slots = await Slot.find({ psy: req.user._id })
+      .sort({ date: 1 });
+
+    res.status(200).json(slots);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur lors de la récupération de vos créneaux' });
+  }
+};
+
+export const deleteSlot = async (req, res) => {
+  try {
+    const slot = await Slot.findById(req.params.id);
+
+    if (!slot) {
+      return res.status(404).json({ message: 'Créneau introuvable' });
+    }
+
+    // Vérifie que le créneau appartient à la psy connectée
+    if (slot.psy.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Accès refusé' });
+    }
+
+    // Empêche la suppression d’un créneau déjà réservé
+    if (!slot.estDisponible) {
+      return res.status(400).json({ message: 'Créneau déjà réservé, impossible à supprimer' });
+    }
+
+    await Slot.findByIdAndDelete(slot._id);
+    res.status(200).json({ message: 'Créneau supprimé avec succès' });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur lors de la suppression du créneau' });
+  }
+};
+

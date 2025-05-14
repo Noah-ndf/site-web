@@ -3,20 +3,48 @@ import React, { useState } from 'react';
 const jours = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
 
 export default function ConfigurerCreneaux() {
-  const [joursAvance, setJoursAvance] = useState(7);
+  const [dates, setDates] = useState([]);
+  const [dateInput, setDateInput] = useState('');
   const [config, setConfig] = useState(() =>
-    Object.fromEntries(jours.map(j => [j, { actif: false, from: '10', to: '19' }]))
+    Object.fromEntries(jours.map(j => [j, { actif: false, plages: [{ from: 10, to: 19 }] }]))
   );
   const [message, setMessage] = useState('');
 
-  const handleChange = (jour, key, value) => {
+  const handleAddDate = () => {
+    if (dateInput && !dates.includes(dateInput)) {
+      setDates([...dates, dateInput]);
+      setDateInput('');
+    }
+  };
+
+  const handleRemoveDate = (d) => {
+    setDates(dates.filter(date => date !== d));
+  };
+
+  const handleJourChange = (jour, key, value) => {
     setConfig(prev => ({
       ...prev,
       [jour]: {
         ...prev[jour],
-        [key]: key === 'actif' ? value : parseInt(value)
+        [key]: value
       }
     }));
+  };
+
+  const handlePlageChange = (jour, index, key, value) => {
+    const plages = [...config[jour].plages];
+    plages[index][key] = parseInt(value);
+    handleJourChange(jour, 'plages', plages);
+  };
+
+  const handleAddPlage = (jour) => {
+    const plages = [...config[jour].plages, { from: 10, to: 12 }];
+    handleJourChange(jour, 'plages', plages);
+  };
+
+  const handleRemovePlage = (jour, index) => {
+    const plages = config[jour].plages.filter((_, i) => i !== index);
+    handleJourChange(jour, 'plages', plages);
   };
 
   const handleSubmit = async (e) => {
@@ -30,13 +58,13 @@ export default function ConfigurerCreneaux() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ config, joursAvance }),
+        body: JSON.stringify({ config, dates }),
       });
 
       const data = await res.json();
       setMessage(data.message || 'Créneaux générés.');
     } catch {
-      setMessage('Erreur lors de la génération des créneaux.');
+      setMessage('Erreur lors de la génération.');
     }
   };
 
@@ -45,23 +73,34 @@ export default function ConfigurerCreneaux() {
       <h2>Configurer mes créneaux</h2>
 
       <form onSubmit={handleSubmit}>
-        <label>Nombre de jours à générer :</label>
-        <select value={joursAvance} onChange={e => setJoursAvance(parseInt(e.target.value))}>
-          <option value={7}>7 jours</option>
-          <option value={14}>14 jours</option>
-          <option value={21}>21 jours</option>
-          <option value={28}>28 jours</option>
-        </select>
+        <label>Ajouter une date (aaaa-mm-jj) :</label><br />
+        <input
+          type="date"
+          value={dateInput}
+          onChange={(e) => setDateInput(e.target.value)}
+        />
+        <button type="button" onClick={handleAddDate}>Ajouter la date</button>
+
+        {dates.length > 0 && (
+          <ul>
+            {dates.map((d) => (
+              <li key={d}>
+                {d}{' '}
+                <button type="button" onClick={() => handleRemoveDate(d)}>❌</button>
+              </li>
+            ))}
+          </ul>
+        )}
 
         <hr />
 
         {jours.map((jour) => (
-          <div key={jour} style={{ marginBottom: '1rem' }}>
+          <div key={jour} style={{ marginBottom: '2rem' }}>
             <label>
               <input
                 type="checkbox"
                 checked={config[jour].actif}
-                onChange={e => handleChange(jour, 'actif', e.target.checked)}
+                onChange={e => handleJourChange(jour, 'actif', e.target.checked)}
               />
               {' '}
               {jour.charAt(0).toUpperCase() + jour.slice(1)}
@@ -69,23 +108,29 @@ export default function ConfigurerCreneaux() {
 
             {config[jour].actif && (
               <>
-                {' '}de{' '}
-                <input
-                  type="number"
-                  min="0"
-                  max="23"
-                  value={config[jour].from}
-                  onChange={e => handleChange(jour, 'from', e.target.value)}
-                />
-                h à{' '}
-                <input
-                  type="number"
-                  min="1"
-                  max="24"
-                  value={config[jour].to}
-                  onChange={e => handleChange(jour, 'to', e.target.value)}
-                />
-                h
+                {config[jour].plages.map((plage, i) => (
+                  <div key={i}>
+                    de{' '}
+                    <input
+                      type="number"
+                      min="0"
+                      max="23"
+                      value={plage.from}
+                      onChange={(e) => handlePlageChange(jour, i, 'from', e.target.value)}
+                    />{' '}
+                    à{' '}
+                    <input
+                      type="number"
+                      min="1"
+                      max="24"
+                      value={plage.to}
+                      onChange={(e) => handlePlageChange(jour, i, 'to', e.target.value)}
+                    />
+                    {' '}
+                    <button type="button" onClick={() => handleRemovePlage(jour, i)}>🗑️</button>
+                  </div>
+                ))}
+                <button type="button" onClick={() => handleAddPlage(jour)}>➕ Ajouter une plage</button>
               </>
             )}
           </div>

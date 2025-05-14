@@ -44,6 +44,7 @@ export default function Navbar() {
           <>
             <Link to="/tous-les-rendez-vous">Tous les rendez-vous</Link>
             <Link to="/configurer-creneaux">Configurer mes créneaux</Link>
+            <Link to="/mes-creneaux">Mes créneaux</Link>
           </>
         )}
 
