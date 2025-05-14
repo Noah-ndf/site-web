@@ -59,6 +59,7 @@ html {
     padding: 10px 30px;
     border-radius: 500px;
     border: 2px solid #9E6F6D;
+    font-size: 16px;
   }
 
   .login:hover {
@@ -71,35 +72,17 @@ html {
  .navbar-right {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding-right: 1rem;
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 1rem;
 }
 
 .bonjour-user {
   font-weight: 500;
-  font-size: 1rem;
-  color: #333;
-  background-color: #f3f3f3;
-  padding: 6px 12px;
+  font-size: 16px;
+  color:#3C5953;
+  padding: 6px 20px;
   border-radius: 16px;
-}
-
-.logout-button {
-  padding: 6px 12px;
-  border: none;
-  background-color: #e84c4c;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.logout-button:hover {
-  background-color: #c63737;
 }

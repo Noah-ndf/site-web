@@ -26,6 +26,10 @@ export default function Navbar() {
       <div className="links">
         <img src="./../../public/pink-logo.png" alt="logo" />
         <Link to="/">{t('home')}</Link>
+        <Link to="/presentation">{t('presentation')}</Link>
+        <Link to="/tarifs">{t('pricing')}</Link>
+        <Link to="/bnp">{t('bookPodcast')}</Link>
+        <Link to="/coordonnees">{t('contact')}</Link>
 
         {/* 👇 N'affiche PAS ce lien si l'utilisateur est une psychologue */}
         {(!user || user.role !== 'psychologue') && (
@@ -57,8 +61,8 @@ export default function Navbar() {
       <div className="navbar-right">
         {user ? (
           <div className="user-info">
-            <span className="bonjour-user">Bonjour, {user.prenom}</span>
-            <button onClick={handleLogout} className="login">
+            <span className="bonjour-user">Bonjour {user.prenom}</span>
+            <button onClick={handleLogout} className="logout-button">
               Se déconnecter
             </button>
           </div>
