@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './db.js';
-
 import authRoutes from './routes/authRoutes.js';
 import appointmentRoutes from './routes/appointmentRoutes.js';
+import slotRoutes from './routes/slotRoutes.js';
 
 dotenv.config();
 connectDB(); // Connexion à MongoDB
@@ -35,6 +35,7 @@ app.get('/api/test', (req, res) => {
 // Routes principales
 app.use('/api/auth', authRoutes);
 app.use('/api/appointments', appointmentRoutes);
+app.use('/api/slots', slotRoutes);
 
 // Route fallback 404
 app.use((req, res) => {
@@ -46,3 +47,4 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Serveur en écoute sur http://localhost:${PORT}`);
 });
+

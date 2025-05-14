@@ -14,6 +14,7 @@ import Coordonnees from './pages/coordonnees';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute'; // ✅ pour protéger la route psy
+import ConfigurerCreneaux from './pages/ConfigurerCreneaux';
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
           element={
             <PrivateRoute requiredRole="psychologue">
               <TousLesRendezVous />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/configurer-creneaux"
+          element={
+            <PrivateRoute requiredRole="psychologue">
+              <ConfigurerCreneaux />
             </PrivateRoute>
           }
         />

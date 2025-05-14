@@ -1,58 +1,61 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-function MesRendezVous() {
-  const [appointments, setAppointments] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+export default function MesRendezVous() {
+  const [slots, setSlots] = useState([]);
+  const [message, setMessage] = useState('');
+
+  const formatDateHeure = (dateStr) => {
+    const d = new Date(dateStr);
+    return d.toLocaleString('fr-FR', {
+      weekday: 'long',
+      day: '2-digit',
+      month: 'long',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     if (!token) {
-      setError('Utilisateur non connecté.');
-      setLoading(false);
+      setMessage('Vous devez être connecté.');
       return;
     }
 
-    fetch('http://localhost:5000/api/appointments/me', {
+    fetch('http://localhost:5000/api/slots/my', {
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
     })
-      .then(res => {
-        if (!res.ok) throw new Error('Erreur lors du chargement des rendez-vous');
-        return res.json();
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setSlots(data);
+        } else {
+          setMessage('Aucun rendez-vous trouvé.');
+        }
       })
-      .then(data => {
-        setAppointments(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        setError(err.message);
-        setLoading(false);
+      .catch(() => {
+        setMessage('Erreur lors du chargement des rendez-vous.');
       });
   }, []);
 
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
-
   return (
-    <div>
+    <div style={{ padding: '2rem' }}>
       <h2>Mes rendez-vous</h2>
-      {appointments.length === 0 ? (
-        <p>Vous n'avez encore aucun rendez-vous.</p>
-      ) : (
+
+      {message && <p style={{ color: 'red' }}>{message}</p>}
+
+      {slots.length > 0 ? (
         <ul>
-          {appointments.map((a) => (
-            <li key={a._id}>
-              {new Date(a.date).toLocaleString()} — {a.motif}
-            </li>
+          {slots.map((slot) => (
+            <li key={slot._id}>{formatDateHeure(slot.date)}</li>
           ))}
         </ul>
+      ) : (
+        !message && <p>Vous n’avez encore pris aucun rendez-vous.</p>
       )}
     </div>
   );
 }
-
-export default MesRendezVous;

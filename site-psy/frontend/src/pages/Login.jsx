@@ -1,28 +1,40 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './../styles/login.css';
-import { Link, useNavigate } from 'react-router-dom';
-import API from '../api';
 
 export default function Login() {
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const { setUser } = useAuth();
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const res = await API.post('/auth/login', formData);
-      localStorage.setItem('token', res.data.token);
-      navigate('/');
+      const res = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setMessage(data.message || 'Erreur de connexion');
+        return;
+      }
+
+      localStorage.setItem('token', data.token);
+      setUser(data.user);                // ✅ Mise à jour du contexte
+      navigate('/');                     // ✅ Redirection vers l’accueil
+      window.scrollTo(0, 0);             // ✅ Scroll automatique en haut
+
     } catch (err) {
-      setError(err.response?.data?.message || 'Une erreur est survenue.');
+      setMessage('Une erreur est survenue');
     }
   };
 
@@ -33,44 +45,39 @@ export default function Login() {
           <img src="./../../public/logo-white-background.png" alt="" />
           <h1>Heureux de vous revoir !</h1>
           <h2>Veuillez vous connecter pour accéder à mes services</h2>
-          <p>Pas encore de compte ? inscrivez-vous <Link to="/Register">ici.</Link></p>
+          <p>Pas encore de compte ? inscrivez-vous <a href="/register">ici.</a></p>
         </div>
-
         <div className="bloc1-2">
           <form className="login-form" onSubmit={handleSubmit}>
             <h2>Connexion</h2>
 
             <div className="labelinput">
               <label htmlFor="email">Email :</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                placeholder="Votre email" 
-                required 
-                value={formData.email} 
-                onChange={handleChange} 
-                autoComplete="email"
+              <input
+                type="email"
+                id="email"
+                placeholder="Votre email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
             <div className="labelinput">
               <label htmlFor="password">Mot de passe :</label>
-              <input 
-                type="password" 
-                id="password" 
-                name="password" 
-                placeholder="Votre mot de passe" 
-                required 
-                value={formData.password} 
-                onChange={handleChange} 
-                autoComplete="current-password"
+              <input
+                type="password"
+                id="password"
+                placeholder="Votre mot de passe"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
 
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-
             <button type="submit">Se connecter</button>
+
+            {message && <p style={{ color: 'red', marginTop: '1rem' }}>{message}</p>}
           </form>
         </div>
       </div>
