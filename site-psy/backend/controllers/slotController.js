@@ -175,3 +175,50 @@ export const deleteSlot = async (req, res) => {
   }
 };
 
+export const updateSlot = async (req, res) => {
+  try {
+    const { newDate } = req.body;
+
+    if (!newDate) {
+      return res.status(400).json({ message: 'Nouvelle date requise' });
+    }
+
+    const slot = await Slot.findById(req.params.id);
+
+    if (!slot) {
+      return res.status(404).json({ message: 'Créneau introuvable' });
+    }
+
+    // Vérifie que le créneau appartient bien à la psy connectée
+    if (slot.psy.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Accès interdit' });
+    }
+
+    // Empêche la modification si le créneau est réservé
+    if (!slot.estDisponible) {
+      return res.status(400).json({ message: 'Impossible de modifier un créneau réservé' });
+    }
+
+    const newDateObj = new Date(newDate);
+
+    // Vérifie si un autre créneau existe déjà à cette date
+    const duplicate = await Slot.findOne({
+      date: newDateObj,
+      psy: req.user._id
+    });
+
+    if (duplicate) {
+      return res.status(400).json({ message: 'Un créneau existe déjà à cette heure-là' });
+    }
+
+    slot.date = newDateObj;
+    await slot.save();
+
+    res.status(200).json({ message: 'Créneau mis à jour', slot });
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur lors de la mise à jour du créneau' });
+  }
+};
+
