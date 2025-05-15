@@ -71,7 +71,7 @@ export default function Presentation() {
         <div className="bar"></div>
         <p className="Pgreen">Margaux témoigne de son expérience avec douleurs chroniques et notamment du syndrome de l'intestin irritable, du SIBO et surtout de l'endométriose.</p>
         <p className="Pgreen">Avec sa casquette de psychologue en devenir et de malade, elle nous partage ses hauts et ses bas sans aucun tabou sur ses douleurs et surtout sur sa période d'errance médicale.</p>
-        <a target="_blank" href="https://podcasts.audiomeans.fr/bien-etre-chronique-155e86396033/peu-importe-ce-quon-vous-dit-vos-symptomes-sont-bien-reels--53408b57">Lien de mon livre</a>
+        <a target="_blank" href="https://podcasts.audiomeans.fr/bien-etre-chronique-155e86396033/peu-importe-ce-quon-vous-dit-vos-symptomes-sont-bien-reels--53408b57">Lien de mon podcast</a>
       </div>
     </div>
 
