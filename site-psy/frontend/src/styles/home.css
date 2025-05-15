@@ -77,14 +77,6 @@ html {
     width: 300px;margin-left: 60px;
   }
 
-/*    Transition     */
-
-
-
-.transition {
-  width: 100%;
-  background-color: #FFF4F1;
-}
 
 
 
@@ -108,11 +100,6 @@ html {
     padding: 50px 200px 0 200px;
   }
 
-  .Bloc2-1 H1 {
-    color: #3C5953;
-    font-size: 60px;
-  }
-
   .bar2-1 {
     width: 500px;
     height: 5px;
@@ -121,12 +108,6 @@ html {
     margin-top: 30px;
   }
 
-  .Bloc2-1 p {
-    margin-top: 40px;
-    color: #3C5953;
-    font-size: 20px;
-    text-align: center;
-  }
 
   .bar2-2 {
     margin-top: 30px;
@@ -148,34 +129,12 @@ html {
     padding: 50px;
   }
 
-  .Bloc2-2-1 h1 {
-    color: #3C5953;
-    font-size: 40px;
-  }
 
   .Bloc2-2-2{
     padding: 50px 50px 0 50px;
     width: 50%;
     height: 100%;
     padding-right: 100px;
-  }
-
-  .Bloc2-2-2 p {
-    margin-bottom: 40px;
-    color: #3C5953;
-    font-size: 18px;
-  }
-  .Bloc2-2-2 :nth-child(2){
-    margin-bottom: 60px;
-  }
-
-  .Bloc2-2-2 a {
-    text-decoration: none;
-    color: #9E6F6D;
-    padding: 20px 50px;
-    background-color: #FFF4F1;
-    border: solid 5px #9E6F6D;
-    border-radius: 50px;
   }
 
 

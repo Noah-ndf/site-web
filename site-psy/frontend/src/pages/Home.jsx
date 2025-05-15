@@ -26,9 +26,9 @@ export default function Home() {
 
  <article className='Bloc2' id='Bloc2'>
   <div className="Bloc2-1">
-    <h1>Ce que je vous propose :</h1>
+    <h1 className='H1green'>Ce que je vous propose :</h1>
     <div className="bar2-1"></div>
-    <p>
+    <p className='Pgreen'>
       Lors de notre première rencontre, nous apprendrons à faire connaissance et après une écoute
       bienveillante et sans jugement de votre demande, nous construirons ensemble
       l’accompagnement qui vous convient le mieux.
@@ -37,15 +37,15 @@ export default function Home() {
   </div>
   <div className="Bloc2-2">
     <div className="Bloc2-2-1">
-      <h1>Téléconsultation :</h1>
+      <h1 className='H1green'>Téléconsultation :</h1>
     </div>
     <div className="Bloc2-2-2">
-      <p>
+      <p className='Pgreen'>
         La psychothérapie doit être accessible à toutes et tous et de n’importe où, c’est pourquoi je
       vous propose un accompagnement en ligne afin de palier vos contraintes de déplacement et
       d’organisation personnelle ou simplement pour répondre à un choix, une préférence.</p>
 
-      <p>
+      <p className='Pgreen'>
       C’est un accompagnement flexible qui vous permet d’avoir accès à un suivi psychologique quelle que
       soit votre situation (maladies chroniques, grossesse alitée, vie à l’étranger, horaires de travail
       incompatibles avec un rendez-vous en cabinet, impératifs familiaux, etc.).</p>
