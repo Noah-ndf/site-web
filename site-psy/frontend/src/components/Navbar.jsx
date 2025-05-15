@@ -25,7 +25,9 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="links">
         <img src="./../../public/pink-logo.png" alt="logo" />
-        <Link to="/">{t('home')}</Link>
+        <Link to="/">Accueil</Link>
+        <Link to="/Presentation">Qui suis-je ?</Link>
+        <Link to="/Presentation">Tarifs et contact</Link>
 
         {/* 👇 N'affiche PAS ce lien si l'utilisateur est une psychologue */}
         {(!user || user.role !== 'psychologue') && (

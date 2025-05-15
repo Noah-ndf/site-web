@@ -8,21 +8,22 @@ export default function Home() {
  
  <article className='Bloc1'>
   <div className='Bloc1-1'>
-    <h1>Écouter, comprendre, évoluer ensemble.</h1>
+    <h1 className='H1green'>Écouter, Comprendre, Évoluer Ensemble.</h1>
     <div className="bar"></div>
-    <p>Mon approche thérapeutique est basée sur l'écoute active, l'empathie et la compréhension de chaque individu dans sa singularité. Je crois en la capacité de chacun à évoluer et à se reconstruire, quel que soit le point de départ.</p>
+    <p className='Pgreen'>Mon approche thérapeutique est basée sur l'écoute active, l'empathie et la compréhension de chaque individu dans sa singularité. Je crois en la capacité de chacun à évoluer et à se reconstruire, quel que soit le point de départ.</p>
     <h2>Découvrez mes services plus bas</h2>
   </div>
   <div className='Bloc1-2'>
     <div className="bar2"></div>
     <div className="Bloc1-2-1">
       <img src="./../../public/Photo-wt-bg.png" alt="" />
-      <h1>MARGAUX VITI</h1>
-      <p>Psychologue (clinicienne) et  Psychotérapeute</p>
+      <h1 className='H1green'>MARGAUX VITI</h1>
+      <p className='Pgreen'>Psychologue (clinicienne) et  Psychotérapeute</p>
     </div>
   </div>
  </article>
-  
+
+
  <article className='Bloc2' id='Bloc2'>
   <div className="Bloc2-1">
     <h1>Ce que je vous propose :</h1>
@@ -48,11 +49,12 @@ export default function Home() {
       C’est un accompagnement flexible qui vous permet d’avoir accès à un suivi psychologique quelle que
       soit votre situation (maladies chroniques, grossesse alitée, vie à l’étranger, horaires de travail
       incompatibles avec un rendez-vous en cabinet, impératifs familiaux, etc.).</p>
-
-      <Link to="/presentation">Plus sur moi</Link>
     </div>
   </div>
  </article>
+
+
+ <article className='Bloc3'> </article>
 
   </div>;
 }
