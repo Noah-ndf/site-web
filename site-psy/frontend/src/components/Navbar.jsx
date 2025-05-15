@@ -25,24 +25,29 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="links">
         <img src="./../../public/pink-logo.png" alt="logo" />
-        <Link to="/">{t('home')}</Link>
+        <Link to="/">Accueil</Link>
+        <Link to="/Presentation">Qui suis-je ?</Link>
+        <Link to="/Presentation">Tarifs et contact</Link>
 
-        {/* 👇 N'affiche PAS ce lien si l'utilisateur est une psychologue */}
-        {(!user || user.role !== 'psychologue') && (
-          <Link to="/prendre-rendez-vous">Prendre un rendez-vous</Link>
-        )}
+        <>
+          {/* 👇 N'affiche PAS ce lien si l'utilisateur est une psychologue */}
+          {(!user || user.role !== 'psychologue') && (
+            <Link to={user ? "/prendre-rendez-vous" : "/login"}>Prendre un rendez-vous</Link>
+          )}
 
-        {user && user.role === 'client' && (
-          <Link to="/mes-rendez-vous">Mes rendez-vous</Link>
-        )}
+          {user && user.role === 'client' && (
+            <Link to="/mes-rendez-vous">Mes rendez-vous</Link>
+          )}
 
-        {user && user.role === 'psychologue' && (
-          <>
-            <Link to="/tous-les-rendez-vous">Tous les rendez-vous</Link>
-            <Link to="/configurer-creneaux">Configurer mes créneaux</Link>
-            <Link to="/mes-creneaux">Mes créneaux</Link>
-          </>
-        )}
+          {user && user.role === 'psychologue' && (
+            <>
+              <Link to="/tous-les-rendez-vous">Tous les rendez-vous</Link>
+              <Link to="/configurer-creneaux">Configurer mes créneaux</Link>
+              <Link to="/mes-creneaux">Mes créneaux</Link>
+            </>
+          )}
+      </>
+
 
         <select
           aria-label="Choix de la langue"

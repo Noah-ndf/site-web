@@ -11,7 +11,12 @@ html {
   .pagecontainer {
     width: 100%;
     height: 100%;
+    background-color: #9E6F6D;
   }
+
+
+/*    Bloc 1     */
+
 
   .Bloc1 {
     width: 100%;
@@ -26,26 +31,7 @@ html {
     padding: 100px;
   }
 
-  .Bloc1-1 h1 {
-    color: #3C5953;
-    text-transform: capitalize;
-    font-size: 60px;
-  }
-
-  .bar {
-    margin-top: 50px;
-    height: 5px;
-    width: 400px;
-    background-color: #9E6F6D;
-    border-radius: 50px;
-  }
-
-  .Bloc1-1 p {
-    color: #3C5953;
-    margin-top: 50px;
-    font-size: 20px;
-  }
-
+  
   .Bloc1-1 h2{
     margin-top: 50px;
     color: #FFF4F1;
@@ -63,14 +49,7 @@ html {
     background-color: #9E6F6D;
     height: 100%;
     width: 40%;
-    padding: 50px;border-bottom-left-radius: 50px;
-  }
-
-  .bar2 {
-    width: 5px;
-    height: 500px;
-    background-color:#3C5953;
-    border-radius: 50px;
+    padding: 50px;
   }
 
   .Bloc1-2-1{
@@ -81,20 +60,16 @@ html {
   .Bloc1-2-1 img {
     background-color:#FFF4F1;
     border-radius: 50px;
-    width: 300px;
+    width: 300px;margin-left: 60px;
   }
 
-  .Bloc1-2-1 h1 {
-    margin-top: 20px;
-    color: #3C5953;
-    text-transform: capitalize;
-    font-size: 60px;
-  }
-  .Bloc1-2-1 p {
-    color: #3C5953;
-    margin-top: 10px;
-    font-size: 20px;
-  }
+
+
+
+
+/*    Bloc 2     */
+
+
 
   .Bloc2 {
     background-color: #FFF4F1;
@@ -111,11 +86,6 @@ html {
     padding: 50px 200px 0 200px;
   }
 
-  .Bloc2-1 H1 {
-    color: #3C5953;
-    font-size: 60px;
-  }
-
   .bar2-1 {
     width: 500px;
     height: 5px;
@@ -123,22 +93,6 @@ html {
     border-radius: 50px;
     margin-top: 30px;
   }
-
-  .Bloc2-1 p {
-    margin-top: 40px;
-    color: #3C5953;
-    font-size: 20px;
-    text-align: center;
-  }
-
-  .bar2-2 {
-    margin-top: 30px;
-    width: 200px;
-    height: 5px;
-    background-color:#9E6F6D;
-    border-radius: 50px;
-  }
-
   .Bloc2-2{
     display: flex;
     height: 430px;
@@ -151,10 +105,6 @@ html {
     padding: 50px;
   }
 
-  .Bloc2-2-1 h1 {
-    color: #3C5953;
-    font-size: 40px;
-  }
 
   .Bloc2-2-2{
     padding: 50px 50px 0 50px;
@@ -163,20 +113,5 @@ html {
     padding-right: 100px;
   }
 
-  .Bloc2-2-2 p {
-    margin-bottom: 40px;
-    color: #3C5953;
-    font-size: 18px;
-  }
-  .Bloc2-2-2 :nth-child(2){
-    margin-bottom: 60px;
-  }
 
-  .Bloc2-2-2 a {
-    text-decoration: none;
-    color: #9E6F6D;
-    padding: 20px 50px;
-    background-color: #FFF4F1;
-    border: solid 5px #9E6F6D;
-    border-radius: 50px;
-  }
+  /*    Bloc 3     */
