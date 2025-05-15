@@ -1,90 +1,72 @@
 import React, { useEffect, useState } from 'react';
 
 export default function TousLesRendezVous() {
-  const [appointments, setAppointments] = useState([]);
-  const [error, setError] = useState('');
+  const [slots, setSlots] = useState([]);
+  const [message, setMessage] = useState('');
 
-  const token = localStorage.getItem('token');
+  const fetchSlots = async () => {
+    const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    if (!token) return setError('You must be logged in.');
-
-    fetch('http://localhost:5000/api/appointments/all', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then(res => {
-        if (!res.ok) throw new Error('Unauthorized or access denied');
-        return res.json();
-      })
-      .then(data => setAppointments(data))
-      .catch(err => setError(err.message));
-  }, [token]);
-
-  const handleStatusChange = async (id, newStatus) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/appointments/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ statut: newStatus }),
+      const res = await fetch('http://localhost:5000/api/slots/reserved', {
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      if (!res.ok) throw new Error('Update failed');
+      const data = await res.json();
 
-      setAppointments((prev) =>
-        prev.map((a) => (a._id === id ? { ...a, statut: newStatus } : a))
-      );
+      if (res.ok) {
+        setSlots(data);
+        setMessage('');
+      } else {
+        setMessage(data.message || 'Erreur lors du chargement des rendez-vous.');
+      }
     } catch (err) {
-      alert('❌ ' + err.message);
+      setMessage('Erreur de connexion au serveur.');
     }
   };
 
-  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+  useEffect(() => {
+    fetchSlots();
+  }, []);
+
+  const formatDate = (d) =>
+    new Date(d).toLocaleString('fr-FR', {
+      weekday: 'long',
+      day: '2-digit',
+      month: 'long',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
 
   return (
-    <div>
-      <h2>Rendez-vous de tous les clients</h2>
-      {appointments.length === 0 ? (
-        <p>Aucun rendez-vous pour le moment.</p>
-      ) : (
-        <table border="1" cellPadding="8">
-          <thead>
-            <tr>
-              <th>Client</th>
-              <th>Email</th>
-              <th>Date</th>
-              <th>Motif</th>
-              <th>Statut</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {appointments.map((a) => (
-              <tr key={a._id}>
-                <td>{a.client.nom} {a.client.prenom}</td>
-                <td>{a.client.email}</td>
-                <td>{new Date(a.date).toLocaleString()}</td>
-                <td>{a.motif}</td>
-                <td>{a.statut}</td>
-                <td>
-                  <select
-                    value={a.statut}
-                    onChange={(e) => handleStatusChange(a._id, e.target.value)}
-                  >
-                    <option value="en attente">en attente</option>
-                    <option value="confirmé">confirmé</option>
-                    <option value="annulé">annulé</option>
-                  </select>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+    <div style={{ padding: '2rem' }}>
+      <h2>Rendez-vous réservés</h2>
+      {message && <p style={{ color: 'red' }}>{message}</p>}
+
+      {slots.length === 0 && !message && <p>Aucun rendez-vous pour l’instant.</p>}
+
+      <ul style={{ marginTop: '1rem' }}>
+        {slots.map((slot) => (
+          <li
+            key={slot._id}
+            style={{
+              marginBottom: '1rem',
+              color: slot.estDisponible ? 'gray' : 'black',
+              textDecoration: slot.estDisponible ? 'line-through' : 'none',
+            }}
+          >
+            <strong>Date :</strong> {formatDate(slot.date)} <br />
+            <strong>Client :</strong> {slot.prisPar?.prenom} {slot.prisPar?.nom} <br />
+            <strong>Email :</strong> {slot.prisPar?.email} <br />
+            <strong>Statut :</strong>{' '}
+            {slot.estDisponible ? (
+              <span style={{ color: 'gray' }}>Annulé</span>
+            ) : (
+              <span style={{ color: 'green' }}>Confirmé</span>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

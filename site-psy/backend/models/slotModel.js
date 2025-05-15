@@ -19,6 +19,10 @@ const slotSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
+  },
+  dateAnnulation: {
+    type: Date,
+    default: null,
   }
 }, { timestamps: true });
 

@@ -177,3 +177,5 @@ export default function TousMesCreneaux() {
     </div>
   );
 }
+
+console.log("User connecté : ", localStorage.getItem("token"));

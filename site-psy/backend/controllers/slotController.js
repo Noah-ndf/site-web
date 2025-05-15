@@ -1,4 +1,6 @@
 import Slot from '../models/slotModel.js';
+import { sendEmail } from '../utils/emailService.js';
+import { formatDate } from '../utils/dateFormatter.js';
 
 export const generateSlots = async (req, res) => {
   try {
@@ -222,3 +224,72 @@ export const updateSlot = async (req, res) => {
   }
 };
 
+export const reserverCreneau = async (req, res) => {
+  try {
+    const slot = await Slot.findById(req.params.id);
+
+    if (!slot) return res.status(404).json({ message: 'Créneau introuvable' });
+    if (!slot.estDisponible) return res.status(400).json({ message: 'Créneau déjà réservé' });
+
+    slot.estDisponible = false;
+    slot.prisPar = req.user._id;
+    slot.dateAnnulation = null; // au cas où il a été annulé puis repris
+    await slot.save();
+
+    await sendEmail({
+      to: req.user.email,
+      subject: 'Votre rendez-vous est confirmé',
+      text: `Bonjour ${req.user.prenom},\n\nVotre rendez-vous est confirmé pour le ${formatDate(slot.date)}.\n\nMerci.`,
+    });
+
+    res.status(200).json({ message: 'Créneau réservé avec succès' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur lors de la réservation du créneau' });
+  }
+};
+
+export const getAllReservedSlots = async (req, res) => {
+  try {
+    const slots = await Slot.find({ prisPar: { $ne: null } })
+      .populate('prisPar', 'nom prenom email')
+      .sort({ date: 1 });
+
+    res.status(200).json(slots);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur lors de la récupération des rendez-vous réservés' });
+  }
+};
+
+export const annulerCreneau = async (req, res) => {
+  try {
+    const slot = await Slot.findById(req.params.id).populate('psy prisPar');
+
+    if (!slot) return res.status(404).json({ message: 'Créneau introuvable' });
+    if (!slot.prisPar || slot.prisPar._id.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Accès interdit' });
+    }
+
+    const maintenant = new Date();
+    const diffHeures = (new Date(slot.date) - maintenant) / (1000 * 60 * 60);
+    if (diffHeures < 24) {
+      return res.status(400).json({ message: 'Impossible d’annuler un rendez-vous à moins de 24h' });
+    }
+
+    slot.estDisponible = true;
+    slot.dateAnnulation = new Date();
+    await slot.save();
+
+    await sendEmail({
+      to: slot.psy.email,
+      subject: 'Annulation de rendez-vous',
+      text: `Bonjour,\n\nLe client ${slot.prisPar.prenom} ${slot.prisPar.nom} a annulé son rendez-vous prévu le ${formatDate(slot.date)}.`,
+    });
+
+    res.status(200).json({ message: 'Rendez-vous annulé avec succès' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Erreur lors de l’annulation du rendez-vous' });
+  }
+};
