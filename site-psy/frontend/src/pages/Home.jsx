@@ -27,17 +27,17 @@ export default function Home() {
  <article className='Bloc2' id='Bloc2'>
   <div className="Bloc2-1">
     <h1 className='H1green'>Ce que je vous propose :</h1>
-    <div className="bar2-1"></div>
+    <div className="bar"></div>
     <p className='Pgreen'>
       Lors de notre première rencontre, nous apprendrons à faire connaissance et après une écoute
       bienveillante et sans jugement de votre demande, nous construirons ensemble
       l’accompagnement qui vous convient le mieux.
     </p>
-    <div className="bar2-2"></div>
+    <div className="bar"></div>
   </div>
   <div className="Bloc2-2">
     <div className="Bloc2-2-1">
-      <h1 className='H1green'>Téléconsultation :</h1>
+      <h1 className='H2green'>Téléconsultation :</h1>
     </div>
     <div className="Bloc2-2-2">
       <p className='Pgreen'>

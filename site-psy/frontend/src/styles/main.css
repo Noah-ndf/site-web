@@ -19,7 +19,19 @@ html {
   font-size: 60px;;
 }
 
+.H2green {
+  color: #3C5953;
+  font-size: 40px;;
+}
+
 .Pgreen {
   color: #3C5953;
   font-size: 20px;
+}
+
+.bar {
+  height: 5px;
+  width: 400px;
+  background-color: #9E6F6D;
+  border-radius: 50px;
 }
