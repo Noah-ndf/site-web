@@ -29,9 +29,25 @@ html {
   font-size: 20px;
 }
 
+.H1white {
+  color: #FFF4F1;
+  font-size: 60px;;
+}
+
+.H2white {
+  color: #FFF4F1;
+  font-size: 40px;;
+}
+
+.Pwhite {
+  color: #FFF4F1;
+  font-size: 20px;
+}
+
 .bar {
   height: 5px;
   width: 400px;
   background-color: #9E6F6D;
   border-radius: 50px;
 }
+

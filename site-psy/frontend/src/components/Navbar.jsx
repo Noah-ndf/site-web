@@ -27,7 +27,7 @@ export default function Navbar() {
         <img src="./../../public/pink-logo.png" alt="logo" />
         <Link to="/">Accueil</Link>
         <Link to="/Presentation">Qui suis-je ?</Link>
-        <Link to="/Presentation">Tarifs et contact</Link>
+        <Link to="/Tarifs">Tarifs et contact</Link>
 
         <>
           {/* 👇 N'affiche PAS ce lien si l'utilisateur est une psychologue */}

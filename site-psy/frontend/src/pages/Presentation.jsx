@@ -51,13 +51,15 @@ export default function Presentation() {
 
     <h1 className="H2green">Mon livre : </h1>
     <div className="bar"></div>
-    <div className="article">
-      <img src="./../public/book.jpg" alt="" />
+      <div className="article">
+      <div className="media-block">
+        <img src="./../public/book.jpg" alt="" />
+        <div className="barVwhite"></div>
+      </div>
       <div className="article-infos">
-        <h1 className="H2green">C'est dans la tête</h1>
-        <div className="bar"></div>
-        <p className="Pgreen">Un cheminement long et intense. L’histoire de cinq années d’errance médicale, mais ne t’inquiète pas, ce n’est pas « barbant », en tout cas, j’ai tenté de faire en sorte que cela se lise facilement et sans prise de tête.</p>
-        <p className="Pgreen">Ici, je me livre à toi, à vous. En toute légèreté et en toute honnêteté. J’ai même essayé de caler un peu d’humour... Mais bon, pas simple dans ce type d’écrit. On parle de troubles digestifs (SII, SIBO...), psychiques, d’endométriose, de médecine et de société en général.</p>
+        <h1 className="H2white">C'est dans la tête</h1>
+        <p className="Pwhite">Un cheminement long et intense. L’histoire de cinq années d’errance médicale, mais ne t’inquiète pas, ce n’est pas « barbant », en tout cas, j’ai tenté de faire en sorte que cela se lise facilement et sans prise de tête.</p>
+        <p className="Pwhite">Ici, je me livre à toi, à vous. En toute légèreté et en toute honnêteté. J’ai même essayé de caler un peu d’humour... Mais bon, pas simple dans ce type d’écrit. On parle de troubles digestifs (SII, SIBO...), psychiques, d’endométriose, de médecine et de société en général.</p>
         <a target="_blank" href="https://www.amazon.fr/Cest-dans-t%C3%AAte-Margaux-Viti-ebook/dp/B0B5H2T5CB/ref=sr_1_1?__mk_fr_FR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=KJQIVD2XRWC9&dib=eyJ2IjoiMSJ9.cm5bf6CcZ_tr7tu-iIzHjw.g71-W5tlQsEoTdUVJddgVb8k0HPte6KAOOSWnFumGgQ&dib_tag=se&keywords=c%27est+dans+la+t%C3%AAte+margaux+viti&qid=1747304371&sprefix=c%27est+dans+la+t%C3%AAte+margaux+viti%2Caps%2C112&sr=8-1">Lien de mon livre</a>
       </div>
     </div>
@@ -65,15 +67,18 @@ export default function Presentation() {
     <h1 className="H2green">Mon podcast : </h1>
     <div className="bar"></div>
     <div className="article">
-      <img src="./../public/podcast.jpg" alt="" />
+      <div className="media-block">
+        <img src="./../public/podcast.jpg" alt="" />
+        <div className="barVwhite"></div>
+      </div>
       <div className="article-infos">
-        <h1 className="H2green">Bien-être chronique</h1>
-        <div className="bar"></div>
-        <p className="Pgreen">Margaux témoigne de son expérience avec douleurs chroniques et notamment du syndrome de l'intestin irritable, du SIBO et surtout de l'endométriose.</p>
-        <p className="Pgreen">Avec sa casquette de psychologue en devenir et de malade, elle nous partage ses hauts et ses bas sans aucun tabou sur ses douleurs et surtout sur sa période d'errance médicale.</p>
+        <h1 className="H2white">Bien-être chronique</h1>
+        <p className="Pwhite">Margaux témoigne de son expérience avec douleurs chroniques et notamment du syndrome de l'intestin irritable, du SIBO et surtout de l'endométriose.</p>
+        <p className="Pwhite">Avec sa casquette de psychologue en devenir et de malade, elle nous partage ses hauts et ses bas sans aucun tabou sur ses douleurs et surtout sur sa période d'errance médicale.</p>
         <a target="_blank" href="https://podcasts.audiomeans.fr/bien-etre-chronique-155e86396033/peu-importe-ce-quon-vous-dit-vos-symptomes-sont-bien-reels--53408b57">Lien de mon podcast</a>
       </div>
     </div>
+
 
   </div>
   ;
