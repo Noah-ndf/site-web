@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import './../styles/Navbar.css';
 
 export default function Navbar() {
-  const { t, i18n } = useTranslation('navbar');
+  const { t, i18n } = useTranslation();
   const { user, setUser, loading } = useAuth();
   const navigate = useNavigate();
 
@@ -25,50 +25,51 @@ export default function Navbar() {
     <nav className="navbar">
       <div className="links">
         <img src="./../../public/pink-logo.png" alt="logo" />
-        <Link to="/">Accueil</Link>
-        <Link to="/Presentation">Qui suis-je ?</Link>
-        <Link to="/Tarifs">Tarifs et contact</Link>
+        <Link to="/">{t('nav.home')}</Link>
+        <Link to="/Presentation">{t('nav.about')}</Link>
+        <Link to="/Tarifs">{t('nav.pricing')}</Link>
 
         <>
-          {/* 👇 N'affiche PAS ce lien si l'utilisateur est une psychologue */}
           {(!user || user.role !== 'psychologue') && (
-            <Link to={user ? "/prendre-rendez-vous" : "/login"}>Prendre un rendez-vous</Link>
+            <Link to={user ? "/prendre-rendez-vous" : "/login"}>
+              {t('nav.makeAppointment')}
+            </Link>
           )}
 
           {user && user.role === 'client' && (
-            <Link to="/mes-rendez-vous">Mes rendez-vous</Link>
+            <Link to="/mes-rendez-vous">{t('nav.myAppointments')}</Link>
           )}
 
           {user && user.role === 'psychologue' && (
             <>
-              <Link to="/tous-les-rendez-vous">Tous les rendez-vous</Link>
-              <Link to="/configurer-creneaux">Configurer mes créneaux</Link>
-              <Link to="/mes-creneaux">Mes créneaux</Link>
+              <Link to="/tous-les-rendez-vous">{t('nav.allAppointments')}</Link>
+              <Link to="/configurer-creneaux">{t('nav.setupSlots')}</Link>
+              <Link to="/mes-creneaux">{t('nav.mySlots')}</Link>
             </>
           )}
-      </>
-
+        </>
 
         <select
-          aria-label="Choix de la langue"
+          aria-label={t('nav.language')}
           onChange={(e) => changeLanguage(e.target.value)}
           defaultValue={i18n.language}
         >
           <option value="fr">Français</option>
           <option value="it">Italiano</option>
+          <option value="en">English</option>
         </select>
       </div>
 
       <div className="navbar-right">
         {user ? (
           <div className="user-info">
-            <span className="bonjour-user">Bonjour, {user.prenom}</span>
+            <span className="bonjour-user">{t('nav.hello')}, {user.prenom}</span>
             <button onClick={handleLogout} className="login">
-              Se déconnecter
+              {t('nav.logout')}
             </button>
           </div>
         ) : (
-          <Link className="login" to="/login">{t('login')}</Link>
+          <Link className="login" to="/login">{t('nav.login')}</Link>
         )}
       </div>
     </nav>

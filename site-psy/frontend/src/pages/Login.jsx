@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import './../styles/login.css';
 
 export default function Login() {
+  const { t } = useTranslation();
   const { setUser } = useAuth();
   const navigate = useNavigate();
 
@@ -24,17 +26,17 @@ export default function Login() {
       const data = await res.json();
 
       if (!res.ok) {
-        setMessage(data.message || 'Erreur de connexion');
+        setMessage(data.message || t('login.defaultLoginError'));
         return;
       }
 
       localStorage.setItem('token', data.token);
-      setUser(data.user);                // ✅ Mise à jour du contexte
-      navigate('/');                     // ✅ Redirection vers l’accueil
-      window.scrollTo(0, 0);             // ✅ Scroll automatique en haut
+      setUser(data.user);
+      navigate('/');
+      window.scrollTo(0, 0);
 
     } catch (err) {
-      setMessage('Une erreur est survenue');
+      setMessage(t('login.error'));
     }
   };
 
@@ -43,20 +45,24 @@ export default function Login() {
       <div className="bloc1">
         <div className="bloc1-1">
           <img src="./../../public/logo-white-background.png" alt="" />
-          <h1>Heureux de vous revoir !</h1>
-          <h2>Veuillez vous connecter pour accéder à mes services</h2>
-          <p>Pas encore de compte ? inscrivez-vous <a href="/register">ici.</a></p>
+          <h1>{t('login.welcomeTitle')}</h1>
+          <h2>{t('login.welcomeSubtitle')}</h2>
+          <p>
+            {t('login.noAccount')}
+            <a href="/register">{t('login.here')}</a>
+          </p>
         </div>
+
         <div className="bloc1-2">
           <form className="login-form" onSubmit={handleSubmit}>
-            <h2>Connexion</h2>
+            <h2>{t('login.formTitle')}</h2>
 
             <div className="labelinput">
-              <label htmlFor="email">Email :</label>
+              <label htmlFor="email">{t('login.emailLabel')}</label>
               <input
                 type="email"
                 id="email"
-                placeholder="Votre email"
+                placeholder={t('login.emailPlaceholder')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -64,18 +70,18 @@ export default function Login() {
             </div>
 
             <div className="labelinput">
-              <label htmlFor="password">Mot de passe :</label>
+              <label htmlFor="password">{t('login.passwordLabel')}</label>
               <input
                 type="password"
                 id="password"
-                placeholder="Votre mot de passe"
+                placeholder={t('login.passwordPlaceholder')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
             </div>
 
-            <button type="submit">Se connecter</button>
+            <button type="submit">{t('login.submit')}</button>
 
             {message && <p style={{ color: 'red', marginTop: '1rem' }}>{message}</p>}
           </form>
