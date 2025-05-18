@@ -125,6 +125,10 @@
   "title": "Practicing Psychotherapist",
   "contact": "Phone: (+33) 07 81 82 20 84 . Email: psychologue.margauxviti@gmail.com",
   "legal": "ADELI No: 789330958 / SIRET No: 889 727 244 00028"
+},
+"notfound": {
+  "title": "Page not found",
+  "description": "Oops... The page you're looking for doesn't exist.",
+  "homeLink": "Back to home"
 }
-
 }

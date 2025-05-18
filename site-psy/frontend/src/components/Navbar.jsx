@@ -14,6 +14,7 @@ export default function Navbar() {
     { code: 'fr', label: 'Français' },
     { code: 'en', label: 'English' },
     { code: 'it', label: 'Italiano' },
+    { code: 'jp', label: 'japanese' },
   ];
 
   const handleLanguageChange = (lng) => {
