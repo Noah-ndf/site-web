@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
@@ -8,9 +8,17 @@ export default function Navbar() {
   const { t, i18n } = useTranslation();
   const { user, setUser, loading } = useAuth();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
-  const changeLanguage = (lng) => {
+  const languages = [
+    { code: 'fr', label: 'Français' },
+    { code: 'en', label: 'English' },
+    { code: 'it', label: 'Italiano' },
+  ];
+
+  const handleLanguageChange = (lng) => {
     i18n.changeLanguage(lng);
+    setOpen(false);
   };
 
   const handleLogout = () => {
@@ -29,35 +37,38 @@ export default function Navbar() {
         <Link to="/Presentation">{t('nav.about')}</Link>
         <Link to="/Tarifs">{t('nav.pricing')}</Link>
 
-        <>
-          {(!user || user.role !== 'psychologue') && (
-            <Link to={user ? "/prendre-rendez-vous" : "/login"}>
-              {t('nav.makeAppointment')}
-            </Link>
-          )}
+        {!user || user.role !== 'psychologue' ? (
+          <Link to={user ? "/prendre-rendez-vous" : "/login"}>
+            {t('nav.makeAppointment')}
+          </Link>
+        ) : null}
 
-          {user && user.role === 'client' && (
-            <Link to="/mes-rendez-vous">{t('nav.myAppointments')}</Link>
-          )}
+        {user && user.role === 'client' && (
+          <Link to="/mes-rendez-vous">{t('nav.myAppointments')}</Link>
+        )}
 
-          {user && user.role === 'psychologue' && (
-            <>
-              <Link to="/tous-les-rendez-vous">{t('nav.allAppointments')}</Link>
-              <Link to="/configurer-creneaux">{t('nav.setupSlots')}</Link>
-              <Link to="/mes-creneaux">{t('nav.mySlots')}</Link>
-            </>
-          )}
-        </>
+        {user && user.role === 'psychologue' && (
+          <>
+            <Link to="/tous-les-rendez-vous">{t('nav.allAppointments')}</Link>
+            <Link to="/configurer-creneaux">{t('nav.setupSlots')}</Link>
+            <Link to="/mes-creneaux">{t('nav.mySlots')}</Link>
+          </>
+        )}
 
-        <select
-          aria-label={t('nav.language')}
-          onChange={(e) => changeLanguage(e.target.value)}
-          defaultValue={i18n.language}
-        >
-          <option value="fr">Français</option>
-          <option value="it">Italiano</option>
-          <option value="en">English</option>
-        </select>
+        <div className="lang-dropdown">
+          <button className="lang-button" onClick={() => setOpen(!open)}>
+            {t('nav.language')}
+          </button>
+          {open && (
+            <ul className="lang-menu">
+              {languages.map((lang) => (
+                <li key={lang.code} onClick={() => handleLanguageChange(lang.code)}>
+                  {lang.label}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
 
       <div className="navbar-right">

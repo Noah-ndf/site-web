@@ -22,7 +22,7 @@
     "login": "Log In",
     "logout": "Log Out",
     "hello": "Hello",
-    "language": "Language Selection"
+    "language": "Language"
   },
   "presentation": {
     "text1": "Presentation:",
@@ -119,5 +119,12 @@
     "welcomeSubtitle": "Please fill in your personal information to access appointment booking",
     "alreadyClient": "Already a client? Log in ",
     "here": "here."
-  }
+  },
+  "footer": {
+  "name": "Margaux viti",
+  "title": "Practicing Psychotherapist",
+  "contact": "Phone: (+33) 07 81 82 20 84 . Email: psychologue.margauxviti@gmail.com",
+  "legal": "ADELI No: 789330958 / SIRET No: 889 727 244 00028"
+}
+
 }

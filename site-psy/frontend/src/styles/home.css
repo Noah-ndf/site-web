@@ -31,6 +31,9 @@ html {
     padding: 100px;
   }
 
+  .Bloc1-1 .bar {
+    margin-block: 30px;
+  }
   
   .Bloc1-1 h2{
     margin-top: 50px;
@@ -51,6 +54,13 @@ html {
     width: 40%;
     padding: 50px;
   }
+  
+  .bar2 {
+    height: 100%;
+    width: 5px;
+    background-color: #3C5953;
+    border-radius: 50px;
+  }
 
   .Bloc1-2-1{
     width: 450px;
@@ -63,7 +73,9 @@ html {
     width: 300px;margin-left: 60px;
   }
 
-
+ .Bloc1-2-1 h1{
+  margin-block: 20px;
+ }
 
 
 
@@ -88,6 +100,10 @@ html {
 
   .Bloc2-1 p {
     text-align: center;
+  }
+
+  .Bloc2-1 .bar {
+    margin-block: 30px;
   }
 
   .bar2-1 {
@@ -118,4 +134,6 @@ html {
   }
 
 
-  /*    Bloc 3     */
+  .Bloc2-2-2 p {
+    margin-bottom: 20px;
+  }

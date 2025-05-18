@@ -22,7 +22,7 @@
     "login": "Se connecter",
     "logout": "Se déconnecter",
     "hello": "Bonjour",
-    "language": "Choix de la langue"
+    "language": "Langue"
   },
   "presentation": {
   "text1": "Présentation :",
@@ -118,7 +118,14 @@
   "welcomeSubtitle": "Veuillez renseigner vos informations personnelles pour pouvoir accéder à la prise de rendez-vous",
   "alreadyClient": "Déjà client ? Connectez-vous ",
   "here": "ici."
+},
+"footer": {
+  "name": "Margaux viti",
+  "title": "Psychotérapeute praticienne",
+  "contact": "Tel : (+33) 07 81 82 20 84 . Mail : psychologue.margauxviti@gmail.com",
+  "legal": "N°ADELI : 789330958 / N°SIRET : 889 727 244 00028"
 }
+
 
 
 
