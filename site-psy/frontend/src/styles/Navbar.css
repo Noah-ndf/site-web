@@ -38,7 +38,7 @@ html {
 
   .links a:hover {
     border-bottom: #3C5953 solid 2px;
-    transition: 0.1s ease;
+    transition: 0.2s ease;
   }
 
   .rdv-dropdown {
@@ -88,12 +88,13 @@ html {
 
 .rdv-menu li a {
   text-decoration: none;
-  color: inherit;
+  color: #3C5953;
   border: none;
 }
 
 .rdv-menu li a:hover {
   border: none;
+  color: #FFF4F1;
 }
 
 .rdv-menu li:hover {
@@ -186,4 +187,10 @@ html {
   color:#3C5953;
   padding: 6px 20px;
   border-radius: 16px;
+}
+
+.active-link {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: #3C5953 solid 2px !important;
 }
