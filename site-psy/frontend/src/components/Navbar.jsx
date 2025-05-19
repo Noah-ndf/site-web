@@ -14,7 +14,6 @@ export default function Navbar() {
     { code: 'fr', label: 'Français' },
     { code: 'en', label: 'English' },
     { code: 'it', label: 'Italiano' },
-    { code: 'jp', label: 'japanese' },
   ];
 
   const handleLanguageChange = (lng) => {
@@ -57,19 +56,17 @@ export default function Navbar() {
         )}
 
         <div className="lang-dropdown">
-          <button className="lang-button" onClick={() => setOpen(!open)}>
-            {t('nav.language')}
-          </button>
-          {open && (
-            <ul className="lang-menu">
-              {languages.map((lang) => (
-                <li key={lang.code} onClick={() => handleLanguageChange(lang.code)}>
-                  {lang.label}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+  <button className="lang-button">
+    {t('nav.language')}
+  </button>
+  <ul className="lang-menu">
+    {languages.map((lang) => (
+      <li key={lang.code} onClick={() => handleLanguageChange(lang.code)}>
+        {lang.label}
+      </li>
+    ))}
+  </ul>
+</div>
       </div>
 
       <div className="navbar-right">

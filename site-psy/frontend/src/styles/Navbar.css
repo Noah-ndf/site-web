@@ -58,14 +58,10 @@ html {
   padding-top: 10px;
 }
 
-.lang-button:hover {
-  border-bottom: #3C5953 solid 2px;
-  transition: 0.3s ease;
-}
-
 .lang-menu {
+  display: none;
   position: absolute;
-  top: 110%;
+  top: 100%;
   left: 0;
   background-color: #FFF4F1;
   border: 2px solid #9E6F6D;
@@ -76,6 +72,11 @@ html {
   margin: 0;
   min-width: 160px;
   overflow: hidden;
+  transition: 0.2s ease;
+}
+
+.lang-dropdown:hover .lang-menu {
+  display: block;
 }
 
 .lang-menu li {
