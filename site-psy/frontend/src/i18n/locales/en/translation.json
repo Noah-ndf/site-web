@@ -22,7 +22,8 @@
     "login": "Log In",
     "logout": "Log Out",
     "hello": "Hello",
-    "language": "Language"
+    "language": "Language",
+    "appointments": "Appointments"
   },
   "presentation": {
     "text1": "Presentation:",

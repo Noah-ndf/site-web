@@ -36,24 +36,40 @@ export default function Navbar() {
         <Link to="/">{t('nav.home')}</Link>
         <Link to="/Presentation">{t('nav.about')}</Link>
         <Link to="/Tarifs">{t('nav.pricing')}</Link>
-
-        {!user || user.role !== 'psychologue' ? (
-          <Link to={user ? "/prendre-rendez-vous" : "/login"}>
-            {t('nav.makeAppointment')}
+{(!user || user.role === 'client') && (
+  <div className="rdv-dropdown">
+    <button className="rdv-button">
+      {t('nav.appointments')}
+    </button>
+    <ul className="rdv-menu">
+      <li>
+        <Link to={user ? "/prendre-rendez-vous" : "/login"}>
+          {t('nav.makeAppointment')}
+        </Link>
+      </li>
+      {user && (
+        <li>
+          <Link to="/mes-rendez-vous">
+            {t('nav.myAppointments')}
           </Link>
-        ) : null}
-
-        {user && user.role === 'client' && (
-          <Link to="/mes-rendez-vous">{t('nav.myAppointments')}</Link>
-        )}
-
+        </li>
+      )}
+    </ul>
+  </div>
+)}
         {user && user.role === 'psychologue' && (
-          <>
-            <Link to="/tous-les-rendez-vous">{t('nav.allAppointments')}</Link>
-            <Link to="/configurer-creneaux">{t('nav.setupSlots')}</Link>
-            <Link to="/mes-creneaux">{t('nav.mySlots')}</Link>
-          </>
-        )}
+  <div className="rdv-dropdown">
+    <button className="rdv-button">
+      {t('nav.appointments')}
+    </button>
+    <ul className="rdv-menu">
+      <li><Link to="/tous-les-rendez-vous">{t('nav.allAppointments')}</Link></li>
+      <li><Link to="/configurer-creneaux">{t('nav.setupSlots')}</Link></li>
+      <li><Link to="/mes-creneaux">{t('nav.mySlots')}</Link></li>
+    </ul>
+  </div>
+)}
+
 
         <div className="lang-dropdown">
   <button className="lang-button">

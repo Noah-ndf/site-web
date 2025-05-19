@@ -22,7 +22,9 @@
     "login": "Se connecter",
     "logout": "Se déconnecter",
     "hello": "Bonjour",
-    "language": "Langue"
+    "language": "Langue",
+    "appointments": "Rendez-vous"
+    
   },
   "presentation": {
   "text1": "Présentation :",
